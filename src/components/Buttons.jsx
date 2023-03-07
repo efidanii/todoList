@@ -1,4 +1,10 @@
-function Buttons({ filterStatus, ClearFilterStatus, setFilter }) {
+import { useSelector, useDispatch } from "react-redux";
+import { ClearFilterStatus, SetFilter } from "../store/todoSlice";
+
+function Buttons({}) {
+  const filterStatus = useSelector((state) => state.todos.filterStatus);
+  const dispatch = useDispatch();
+
   return (
     <div className="btns">
       <button
@@ -8,7 +14,7 @@ function Buttons({ filterStatus, ClearFilterStatus, setFilter }) {
             ? "btn btn-light btn-active"
             : "btn btn-light"
         }
-        onClick={ClearFilterStatus}
+        onClick={() => dispatch(ClearFilterStatus())}
       >
         All
       </button>
@@ -19,7 +25,7 @@ function Buttons({ filterStatus, ClearFilterStatus, setFilter }) {
             ? "btn btn-light btn-active"
             : "btn btn-light"
         }
-        onClick={() => setFilter({ is_active: true })}
+        onClick={() => dispatch(SetFilter({ is_active: true }))}
       >
         Active
       </button>
@@ -31,7 +37,7 @@ function Buttons({ filterStatus, ClearFilterStatus, setFilter }) {
             : "btn btn-light"
         }
         data-filter="3"
-        onClick={() => setFilter({ is_active: false })}
+        onClick={() => dispatch(SetFilter({ is_active: false }))}
       >
         Done
       </button>

@@ -1,4 +1,20 @@
-function Add({ valueInputAdd, setValueAdd, AddTodo }) {
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { AddTodo } from "../store/todoSlice";
+
+function Add() {
+  const [valueInputAdd, setValueAdd] = useState("");
+  const dispatch = useDispatch();
+  const addNewTodo = () => {
+    dispatch(AddTodo(valueInputAdd));
+    setValueAdd("");
+    setTimeout(
+      () =>
+        (document.querySelector(".todo-list").scrollTop =
+          document.querySelector(".todo-list").scrollHeight)
+    );
+  };
+
   return (
     <div className="addTodo">
       <input
@@ -6,13 +22,8 @@ function Add({ valueInputAdd, setValueAdd, AddTodo }) {
         placeholder="Add todo"
         value={valueInputAdd}
         onChange={(e) => setValueAdd(e.target.value)}
-        onKeyPress={(e) => {
-          if (e.key === "Enter") {
-            AddTodo();
-          }
-        }}
       />
-      <div className="send-invite-btn" onClick={AddTodo}>
+      <div className="send-invite-btn" onClick={() => dispatch(addNewTodo)}>
         Добавить
       </div>
     </div>

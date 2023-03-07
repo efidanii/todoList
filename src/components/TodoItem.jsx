@@ -1,16 +1,21 @@
-function TodoItem({ key, item, ToggleStatusTodo, DeleteTodo }) {
+import { useDispatch } from "react-redux";
+import { DeleteTodo, ToggleStatusTodo } from "../store/todoSlice";
+
+function TodoItem({ item }) {
+  const dispatch = useDispatch();
+
   return (
     <li key={item.id}>
       <div className="todo-name">{item.title}</div>
       <div className="todo-btns">
         <input
-          onChange={() => ToggleStatusTodo(item.id)}
+          onChange={() => dispatch(ToggleStatusTodo(item.id))}
           checked={item.status ? "checked" : ""}
           type="radio"
           aria-label="Checkbox for following text input"
         ></input>
         <svg
-          onClick={() => DeleteTodo(item.id)}
+          onClick={() => dispatch(DeleteTodo(item.id))}
           className="closeBtn"
           width="15px"
           height="15px"

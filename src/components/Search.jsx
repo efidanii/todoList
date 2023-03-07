@@ -1,12 +1,12 @@
+import { useSelector, useDispatch } from "react-redux";
+import { SetSearchValue } from "../store/todoSlice";
+
 import Buttons from "./Buttons";
 
-function Search({
-  valueInputSearch,
-  setValueSearch,
-  filterStatus,
-  ClearFilterStatus,
-  setFilter,
-}) {
+function Search() {
+  const valueInputSearch = useSelector((state) => state.todos.valueInputSearch);
+  const dispatch = useDispatch();
+
   return (
     <div className="search">
       <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -16,13 +16,9 @@ function Search({
         type="text"
         placeholder="Search todo"
         value={valueInputSearch}
-        onChange={(e) => setValueSearch(e.target.value)}
+        onChange={(e) => dispatch(SetSearchValue(e.target.value))}
       />
-      <Buttons
-        filterStatus={filterStatus}
-        ClearFilterStatus={ClearFilterStatus}
-        setFilter={setFilter}
-      />
+      <Buttons />
     </div>
   );
 }
